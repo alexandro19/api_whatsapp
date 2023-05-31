@@ -1,0 +1,5 @@
+export * from './makeWhatsAppAuthentication'
+export * from './makeWhatsAppSendMessage'
+export * from './makeWhatsAppSession'
+export * from './makeWhatsAppSendMidea'
+export * from './makeWhatsAppDesconnect'

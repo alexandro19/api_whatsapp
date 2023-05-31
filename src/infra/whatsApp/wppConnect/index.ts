@@ -1,0 +1,5 @@
+export * from './WppConnectAuthentication'
+export * from './WppConnectDesconnect'
+export * from './WppConnectIsConnected'
+export * from './WppConnectSendMessage'
+export * from './WppConnectSendMidea'

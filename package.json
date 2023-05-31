@@ -1,0 +1,48 @@
+{
+  "name": "clean-api-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.ts",
+  "scripts": {
+    "test": "jest --passWithNoTests --runInBand --no-cache",
+    "test:unit": "npm test -- --watchAll -c jest-unit-config.js",
+    "test:integration": "npm test -- --watch -c jest-integration-config.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/main/server.ts",
+    "build": "rimraf dist && tsc",
+    "start": "node dist/main/server.js",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
+    "prod": "npm run build && pm2 start ./dist/main/server.js --name api_whatsApp --watch",
+    "up": "npm run build && cd ./dist && mkdir public\\anexos && node ./main/install-service.js",
+    "down": "cd ./dist && node ./main/uninstall-service.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.1",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^20.1.4",
+    "@types/socket.io": "^3.0.2",
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@wppconnect-team/wppconnect": "^1.24.0",
+    "compressorjs": "^1.2.1",
+    "dotenv": "^16.0.3",
+    "eventemitter2": "^6.4.9",
+    "express": "^4.18.2",
+    "fast-glob": "^3.2.12",
+    "libphonenumber-js": "^1.10.30",
+    "multer": "^1.4.5-lts.1",
+    "node-windows": "^1.0.0-beta.8",
+    "qrcode-base64": "^1.0.1",
+    "qrcode-terminal": "^0.12.0",
+    "socket.io": "^4.6.1",
+    "whatsapp-web.js": "^1.20.0",
+    "winston": "^3.8.2"
+  }
+}
