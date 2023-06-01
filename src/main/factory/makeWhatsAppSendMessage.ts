@@ -7,6 +7,7 @@ import { SessionMemory } from '../../infra/session/sessionMemory/SessionMemory'
 import { LibPhoneNumber } from '../../infra/phoneNumber/libPhoneNumberJs'
 import { WppConnectSendMessage } from '../../infra/whatsApp/wppConnect/WppConnectSendMessage'
 import { EngineSendMessage } from '../../usecases/interfaces'
+import { VenomBotSendMessage } from '../../infra/whatsApp/venonBot/VenomBotSendMessage'
 
 export const makeSendMessageController = (): Controller => {
   let engineSendMessage: EngineSendMessage
@@ -18,6 +19,9 @@ export const makeSendMessageController = (): Controller => {
   }
   else if (config.engine == 2){
     engineSendMessage = new WhatsAppWebSendMessage(sessionMemory, libPhoneNumber, libPhoneNumber)
+  }
+  else if (config.engine == 3){
+    engineSendMessage = new VenomBotSendMessage(sessionMemory, libPhoneNumber, libPhoneNumber)
   }
   
   const sendMessage = new SendMessageUseCase(engineSendMessage, sessionMemory)

@@ -6,6 +6,7 @@ import { SessionMemory } from '../../infra/session/sessionMemory/SessionMemory'
 import { WhatsAppWebDesconnect } from '../../infra/whatsApp/whatsappWeb/WhatsAppWebDesconnect'
 import { WppConnectDesconnect } from '../../infra/whatsApp/wppConnect/WppConnectDesconnect'
 import { EngineDesconnect } from '../../usecases/interfaces'
+import { VenomBotDesconnect } from '../../infra/whatsApp/venonBot/VenomBotDesconnect'
 
 export const makeDesconnectController = (): Controller => {
   let engineDisconnect: EngineDesconnect
@@ -16,6 +17,9 @@ export const makeDesconnectController = (): Controller => {
   }
   else if(config.engine == 2){
     engineDisconnect  = new WhatsAppWebDesconnect(sessionRepository)
+  }
+  else if(config.engine == 3){
+    engineDisconnect  = new VenomBotDesconnect(sessionRepository)
   }
   
   const desconnect = new DesconnectUseCase(sessionRepository, engineDisconnect)

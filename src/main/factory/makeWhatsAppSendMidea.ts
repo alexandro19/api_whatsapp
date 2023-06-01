@@ -7,6 +7,7 @@ import { SessionMemory } from '../../infra/session/sessionMemory/SessionMemory'
 import { LibPhoneNumber } from '../../infra/phoneNumber/libPhoneNumberJs'
 import { WppConnectSendMidea } from '../../infra/whatsApp/wppConnect/WppConnectSendMidea'
 import { EngineSendMidea } from '../../usecases/interfaces'
+import { VenomBotSendMidea } from '../../infra/whatsApp/venonBot'
 
 export const makeSendMideaController = (): Controller => {
   let engineSendMidea: EngineSendMidea
@@ -19,6 +20,9 @@ export const makeSendMideaController = (): Controller => {
   }
   else if(config.engine == 2){
     engineSendMidea = new WhatsAppWebSendMidea(sessionRepository, libPhone, libPhone)
+  }
+  else if(config.engine == 3){
+    engineSendMidea = new VenomBotSendMidea(sessionRepository, libPhone, libPhone)
   }
     
   const sendMidea = new SendMideaUseCase(engineSendMidea, sessionRepository)

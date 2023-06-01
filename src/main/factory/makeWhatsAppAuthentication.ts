@@ -8,6 +8,7 @@ import { WhatsAppWebAuthentication, WhatsAppWebIsConnected } from '../../infra/w
 import { AuthenticationUseCase } from '../../usecases/whatsapp/AuthenticationUseCase'
 import { WppConnectAuthentication, WppConnectIsConnected } from '../../infra/whatsApp/wppConnect'
 import { EngineAuthentication, EngineIsConnected } from "../../usecases/interfaces"
+import { VenomBotAuthentication } from "../../infra/whatsApp/venonBot/VenomBotAuthentication"
 
 export const makeAuthenticationController = (): Controller => {
   let engineAuthentication : EngineAuthentication
@@ -25,6 +26,10 @@ export const makeAuthenticationController = (): Controller => {
   else if (env.engine == 2){
     engineAuthentication = new WhatsAppWebAuthentication(sessionRepository, qrTerminal, socket, qrCodeBase64)
     engineIsConnected    = new WhatsAppWebIsConnected(sessionRepository)
+  }
+  else if (env.engine == 3){
+    engineAuthentication = new VenomBotAuthentication(socket, sessionRepository)
+    engineIsConnected    = new WppConnectIsConnected(sessionRepository)
   }
 
   const authentication   = new AuthenticationUseCase(engineAuthentication, engineIsConnected)
