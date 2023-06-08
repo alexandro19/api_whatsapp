@@ -8,7 +8,7 @@ import env from '../config/env'
 export const makeRegisterController = (): Controller => {
   
   const accountMongo = new AccountMongo()
-  const hasher       = new BcryptAdapter(12)
+  const hasher       = new BcryptAdapter(env.salt as number)
   const bycript      = new JwtAdapter(env.jwtSecret)
   
   const registerUseCase = new RegisterUseCase(accountMongo, hasher)

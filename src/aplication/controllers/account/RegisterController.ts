@@ -1,7 +1,7 @@
 import { Register, Login } from "../../../entities/account"
 import { Controller, HttpRequest, HttpResponse } from "../../../aplication/interfaces"
 import { badRequest, created, serverError } from "../../../aplication/helpers/HttpHelpers"
-import { MissingParam } from "../../../aplication/errors"
+import { InvalidParam, MissingParam } from "../../../aplication/errors"
 
 export class RegisterController implements Controller {
   constructor(
@@ -10,15 +10,19 @@ export class RegisterController implements Controller {
   
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const requiredFields = ['nome', 'email', 'celular', 'password']
+      const requiredFields = ['nome', 'email', 'celular', 'password', 'confirmPassword']
       
       for(var field of requiredFields){
         if(!httpRequest.body[field]){
           return badRequest(new MissingParam(field))
         }
       }
+      const { nome, email, celular, password, confirmPassword } = httpRequest.body
 
-      const { nome, email, celular, password } = httpRequest.body
+      if(password != confirmPassword){
+        return badRequest(new InvalidParam('confirmPassword'))
+      }
+
       const result = await this.register.create({nome, email, celular, password})
       
       if(result.error){
@@ -28,10 +32,10 @@ export class RegisterController implements Controller {
       const authentication = await this.login.auth({email, password})
 
       if(authentication.error){
-        return serverError(result.error)  
+        return badRequest(authentication.error)  
       }
 
-      return created(authentication.token)
+      return created({ token: authentication.token })
 
     } 
     catch (error) {
