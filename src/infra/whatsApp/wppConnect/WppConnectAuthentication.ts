@@ -97,6 +97,33 @@ export class WppConnectAuthentication implements EngineAuthentication {
         this.sessionRepository.addClientSession(session, client)
         
         client.onMessage((message) => {
+          console.log('Mensagem recebida')
+          console.log(message)
+          
+          if(message.body === 'gostaria de saber mais sobre o produto'){
+            client
+              .sendText(message.from, `Olá, ${message.notifyName}, vou te explicar certinho como funciona o 
+              produto e quais as vantagens que você vai poder usufruir dele, já salva o meu contato ai para 
+              irmos conversando`)
+              .then((result) => {
+                console.log('Result: ', result); //return object success
+              })
+              .catch((erro) => {
+                console.error('Error when sending: ', erro); //return object error
+              });  
+          }
+
+          if(message.body.includes('valor')){
+            client
+              .sendText(message.from, `Então esse produto está com um preço muito especial essa semana, está com uma promoção no kit vc gostaria de saber mais sobre esse kit promicional?`)
+              .then((result) => {
+                console.log('Result: ', result); //return object success
+              })
+              .catch((erro) => {
+                console.error('Error when sending: ', erro); //return object error
+              });  
+          }
+
           if (message.body === 'Hello') {
             client
               .sendText(message.from, 'Hello, how I may help you?')

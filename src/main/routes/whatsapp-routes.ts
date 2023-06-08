@@ -4,9 +4,9 @@ import { makeAuthenticationController, makeSessionController, makeSendMessageCon
 import { anexoUpload } from "../../main/config/anexosUpload"
 
 export default (router: Router): void => {
-  router.post('/authentication', adaptRoute(makeAuthenticationController()))  
-  router.post('/desconnect', adaptRoute(makeDesconnectController()))  
-  router.post('/status', adaptRoute(makeSessionController()))  
-  router.post('/send', anexoUpload.array('anexos'), adaptRoute(makeSendMessageController()))  
-  router.post('/sendmidea', anexoUpload.array('anexos'), adaptRoute(makeSendMideaController()))  
+  router.post('/whatsapp/authentication', adaptRoute(makeAuthenticationController()))  
+  router.post('/whatsapp/desconnect', adaptRoute(makeDesconnectController()))  
+  router.post('/whatsapp/status', adaptRoute(makeSessionController()))  
+  router.post('/whatsapp/send', anexoUpload.array('anexos'), adaptRoute(makeSendMessageController()))  
+  router.post('/whatsapp/sendmidea', anexoUpload.array('anexos'), adaptRoute(makeSendMideaController()))  
 }
