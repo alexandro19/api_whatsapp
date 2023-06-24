@@ -19,8 +19,8 @@ export class LoginController implements Controller {
 
       const authentication = await this.login.auth({email, password})
 
-      if(authentication.error){
-        return badRequest(authentication.error)  
+      if(!authentication){
+        return badRequest(new Error('Usuário ou senha inválido(s)'))  
       }
 
       return ok({ token: authentication.token })

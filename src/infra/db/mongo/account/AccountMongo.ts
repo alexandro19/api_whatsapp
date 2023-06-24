@@ -32,7 +32,9 @@ export class AccountMongo implements AccountRepository {
     }, {
       projection: {
         _id: 1,
-        name: 1,
+        nome: 1,
+        email: 1,
+        celular: 1,
         password: 1
       }
     })
@@ -48,5 +50,20 @@ export class AccountMongo implements AccountRepository {
         accessToken: token
       }
     })
+  }
+
+  async loadByToken(token: string, role?: string): Promise<Omit<AccountRepository.ModelAccount, "password">> {
+    const accountCollection = MongoHelper.getCollection(ACCOUNT)
+    const account = await accountCollection.findOne({
+      accessToken: token
+    }, {
+      projection: {
+        _id: 1,
+        nome: 1,
+        email: 1,
+        celular: 1
+      }
+    })
+    return account && MongoHelper.map(account)
   }
 }

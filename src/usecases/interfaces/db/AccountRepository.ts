@@ -5,6 +5,7 @@ export interface AccountRepository {
   loadByEmail(email: string): Promise<AccountRepository.ModelAccount>    
   existsByEmail(email: string): Promise<boolean>
   updateAccessToken(id: string, token: string): Promise<void>
+  loadByToken(token: string, role?: string): Promise<Omit<AccountRepository.ModelAccount, 'password'>>
 }
 
 export namespace AccountRepository {
