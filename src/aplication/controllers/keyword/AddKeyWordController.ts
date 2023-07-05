@@ -1,6 +1,6 @@
 import { AddKeyWord } from "../../../entities/keyword/AddKeyWord"
 import { MissingParam } from "../../../aplication/errors"
-import { badRequest, ok, serverError } from "../../../aplication/helpers/HttpHelpers"
+import { badRequest, created, ok, serverError } from "../../../aplication/helpers/HttpHelpers"
 import { Controller, HttpRequest, HttpResponse } from "../../../aplication/interfaces"
 
 export class AddKeyWordController implements Controller {
@@ -23,7 +23,7 @@ export class AddKeyWordController implements Controller {
         return serverError(new Error('Ocorreu um erro ao inserir a palavra chave'))
       }
 
-      return ok(inserted)
+      return created({inserted})
     } 
     catch (error) {
       return serverError(error)      
