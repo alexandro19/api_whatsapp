@@ -3,6 +3,7 @@ export interface HttpRequest {
   params?: any
   query?: any
   files?: any
+  file?: any
 }
 
 export interface HttpResponse {
